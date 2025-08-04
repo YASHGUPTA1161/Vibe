@@ -1,0 +1,985 @@
+13 Code View
+6:12:36
+In this chapter, we're going to implement the code view. This will be a slightly longer chapter in comparison to
+6:12:43
+our last one simply because we have a bit more components to create. But let's
+6:12:49
+start with adding tabs in our project view component so that we can switch between the fragment web component and
+6:12:56
+code view component. So as always ensure that you are on your
+6:13:01
+main branch and you can synchronize changes. The last chapter was 12 fragment view.
+6:13:09
+Now let's go ahead inside of our project view. And this time we're going to add a
+6:13:15
+couple of components. So let's go ahead and just in between the fragment and the
+6:13:20
+components UI resizable add tabs. Tabs content tabs list and tabs trigger. from
+6:13:26
+components UI tabs you have them installed when you added chats UI and
+6:13:32
+once you have added them it's time to use them so what I'm going to do is I'm
+6:13:37
+going to go below the project view and I will add tab state and set tab state I
+6:13:45
+will add use state here and I will set the options to be preview or code and by
+6:13:52
+default it's going to be preview now Now that we have the tab state, let's go in
+6:13:58
+the second resizable panel here and let's encapsulate the active fragment
+6:14:05
+within tabs. Now in here, let's give the tabs a class
+6:14:10
+name. Height full gap Y zero. Default
+6:14:16
+value will be preview. value will be tab state
+6:14:22
+and on value change we'll get the new value and set tab state to be value as
+6:14:30
+preview or code like this.
+6:14:36
+Then inside of this tabs let's add a new div and let's encapsulate this once again.
+6:14:43
+This div will have a class name of full width items center padding two border
+6:14:50
+bottom and gap x of two and then open tabs list and again encapsulate the
+6:14:58
+fragment. Inside of the tabs list give it a class name of height zero padding
+6:15:05
+zero border and rounded medium. And then finally inside of here we can add tabs
+6:15:12
+trigger. The first one will be the value preview with the class name rounded medium.
+6:15:22
+We're going to render the I icon here which you can import from Lucid React.
+6:15:27
+And while you're here also import icon. Let me just move them to the top. There
+6:15:34
+we go. So, let me just fix this. Uh, just a
+6:15:41
+second. So, I think I just have to remove this.
+6:15:46
+There we go. So, inside of this tabs trigger, add the eye icon like that and a span demo.
+6:15:57
+And then copy this trigger. This one will be code with the text code and uses
+6:16:04
+the code icon. And then outside of the tabs list,
+6:16:10
+go ahead and add a div with class name
+6:16:15
+ML auto flex items center and gap x of
+6:16:22
+two. And this button will
+6:16:28
+uh I'm sorry this div will encapsulate a button from components UI button
+6:16:35
+which will uh not serve any purpose now but it will later. So give it as child
+6:16:42
+give it size small variant and for now give it well just default
+6:16:52
+a link from next link. So, make sure to add this
+6:17:00
+with an href of pricing and add a crown icon
+6:17:08
+and upgrade text. Great. And now
+6:17:16
+outside of that div and outside of this div as well. So move this outside. Add
+6:17:23
+tabs content. This one will be for value preview. So
+6:17:30
+you can put this finally inside. And then we're going to have another tabs content
+6:17:36
+or value code. And this will simply be a paragraph to-do code.
+6:17:43
+There we go. So make sure tabs content is still inside of tabs. So now when you go inside of your app here, you should
+6:17:50
+see a button to upgrade which should lead you to 404 page. And you should see
+6:17:56
+that you can switch between demo and between code. Uh the demo doesn't show
+6:18:01
+anything until you select a fragment. Right? So you can see how you can switch between the two. So now let's develop
+6:18:09
+the code part. So in here it will be quite similar.
+6:18:16
+So let's start by doing the following. MPM install prismjs.
+6:18:22
+This will be used to uh highlight code syntax. So let's go ahead and develop
+6:18:28
+this simple component inside of source components. So in here
+6:18:33
+add code view.tsx. And in here you're going to need uh just
+6:18:40
+one more thing. So let's actually create a folder code view like this and move
+6:18:47
+this inside. And you can change this to be index.tsx.
+6:18:56
+And then go inside of your uh vibe assets. You can use the link in the description or you can see it on the
+6:19:02
+screen here. And find code theme.css. So it's quite long. That's why we are not typing it. So go ahead and copy this
+6:19:10
+and create it here. So code theme.css
+6:19:15
+and just paste the entire thing inside and save it. And now let's go ahead and develop the code view here. So you're
+6:19:23
+going to import everything from PrismJS. And let me show you Prism.js. Oh, did I
+6:19:28
+install it or not? MPM install PrismJS.
+6:19:35
+Let me see. PrismJS. It is installed. But I think I also need to do mpm install-d at types
+6:19:43
+prismjs. There we go. So, prismjs 1.3 and types
+6:19:49
+1.26.5 and now it works. Below that, import use effect and then
+6:19:57
+import the following things. Risenjs components and then JavaScript, JSX,
+6:20:03
+Python, TSX or TypeScript. You can remove if you're not going to use Python for example.
+6:20:10
+And finally, import code theme CSS. So
+6:20:15
+just make sure this is in the same folder. Right. Then export const code view
+6:20:23
+and create a simple interface props
+6:20:29
+which accepts the code which is a string and a language which is a string.
+6:20:36
+So assign the props. Let's dstructure them. Code and language. And inside of here, return
+6:20:44
+a pre-tag. Give it a class name padding two, background color transparent, border
+6:20:52
+none, rounded none, margin zero, and the text extra small.
+6:21:00
+And inside of here, add a code element, which renders the code.
+6:21:07
+And let's give this a class name. And let's go ahead and use language
+6:21:14
+dash lang like this. Usually if this was a TypeScript uh class name, you would
+6:21:21
+not do this because this type you shouldn't do this kind of half dynamic
+6:21:26
+class name, right? You should instead do the full one. But this is not a Tailwind
+6:21:32
+class. This is a class from Prism, right? That's why you don't have to worry
+6:21:38
+because you can see that it is exactly what it expects. And now let's just use the use effect
+6:21:45
+here for a very simple thing. So on load simply use prism and highlight all.
+6:21:53
+That's it. So that's going to be our code view component.
+6:21:58
+And if you go inside of project view, uh maybe we can already render it. Let's try code view.
+6:22:04
+And let me try adding language to be JS or let's do ts. And let's do code.
+6:22:11
+Let me just try const a is equal hello world
+6:22:18
+something like that. Let's see if we are able to preview that. And we are. There we go. And I think that it will also
+6:22:25
+affect dark mode. And you can see how the syntax is visible. Very nice.
+6:22:31
+And now let's actually uh use this in a file explorer because that's what we
+6:22:38
+have to do next. So we're going to go ahead and create the file explorer
+6:22:44
+inside. Yes, let me just show you how you can import code view. So you don't have to go to index.
+6:22:51
+Index can be uh used like this. That's why we named it index. So you can just
+6:22:56
+target code view. In case this doesn't work for you for any reason, you can just name this
+6:23:02
+properly, name it code view again and then just import that way. And let me just move it up here. There we go.
+6:23:11
+So now let's create the file explorer component. I'm going to go inside of source
+6:23:16
+components file. Whoops.
+6:23:22
+File explorer.tsx. And let's go ahead and let's prepare the
+6:23:29
+imports. Copy check icon and copy icon from lucid react. Use state use memo and
+6:23:36
+use callback as well as fragment from react.
+6:23:41
+Hint and button from components. Button comes from shatzen meaning it has the UI
+6:23:48
+prefix and hint is our custom component which we created in the previous chapter. Now let's import our new code
+6:23:55
+view which we just created. And then let's go ahead uh and add
+6:24:03
+resizable with resizable handle panel and panel group. And let's also import everything
+6:24:11
+we need from breadcrumb. So both of this come from shatnui. So you have them
+6:24:18
+breadcrumb item list page separator and ellipses.
+6:24:23
+Now let's go ahead and let's define our file collection.
+6:24:28
+This is our file collection type. It is basically a type of record string
+6:24:34
+string. But I like to use this type simply because it uses the path as the key and then the content here. I think
+6:24:39
+this kind of visually makes more sense. I think we did the same thing in our
+6:24:45
+functions path string. Yes, this is exactly how we defined our files here. So I like to do
+6:24:51
+this because I think uh it visually looks better. Great. So now let's go
+6:24:57
+ahead and first create a function which can extract language from file extension. So get language from
+6:25:04
+extension accepts the file name and returns a string. And what we do here is we simply target the extension part and
+6:25:12
+we take that part and we turn it to lowercase and we default to text if we
+6:25:17
+were unable to do that. So basically if we enter something like app.tsx
+6:25:23
+we return tsx as the language. As simple as that.
+6:25:30
+Perfect. Now let's go ahead and let's create
+6:25:35
+uh a component which we are going to need in order to even render uh which file is currently active. So I'm just
+6:25:41
+trying to think what is the best way to build this so that you can see the results as soon as possible because
+6:25:47
+there's a lot of components we have to build and I'm just afraid that um we might have to build for a lot of time
+6:25:53
+without seeing any results. So this is what I will do. We're going to do export
+6:25:59
+const file explorer like this.
+6:26:04
+Let's create an interface file explorer. Actually, let's just call this yeah file explorer props because we're going to
+6:26:11
+have many components in this file. So I want to name this explicitly to be file explorer props. It will accept files
+6:26:18
+which are a type of file collection like this. Then let's go ahead and let's use this
+6:26:25
+and we can destructure the files from here. So now what I want to do is I want
+6:26:31
+to add the return resizable group resizable panel group like this with the
+6:26:38
+direction horizontal and then resizable panel
+6:26:47
+with a default size of 30 with a minimum size of 30 and a class
+6:26:54
+name background sidebar. And inside of here, a paragraph to-do
+6:27:02
+tree view like this. Then let's go ahead and let's add a
+6:27:08
+resizable handle here with a class name hover background
+6:27:15
+primary and transition colors like this.
+6:27:21
+And then let's go ahead and do another resizable banner
+6:27:27
+like this with a default size of 70 and a minimum size of 50.
+6:27:34
+And in here what we are going to do is try and do files
+6:27:42
+first in the array. I'm just thinking of a way. Okay, I know
+6:27:48
+what we can do now. Let's create a state called selected files.
+6:27:55
+So const selected file set selected file
+6:28:00
+use state. And it can either be a string or null.
+6:28:06
+And let's go ahead and create a function inside of use state to get the file keys
+6:28:13
+by using object keys and pass in the files. And then return file keys.length
+6:28:18
+length is larger than zero, we can select from the file keys the first in
+6:28:24
+the array otherwise null. So this way we are going to pre-seelelect the first
+6:28:29
+file we can find. And now that we have this first file, I think it will be a little bit easier for us to build this
+6:28:36
+UI. So inside of this second resizable panel, check if we have the selected
+6:28:41
+file and if inside of files we can find this selected file. If we can do that,
+6:28:48
+go ahead and render a div code view
+6:28:53
+like this. Otherwise, let's go ahead and render the alternative which is a div
+6:28:59
+which says select a file to view its content
+6:29:06
+with a class name flex height full items
+6:29:11
+center justify center and text muted foreground
+6:29:16
+and I think it's time to render this. So let's go inside of the project view here and let's go ahead and render it
+6:29:23
+instead. So remove code view and check if you have active fragment question
+6:29:29
+mark files. Render the file explorer component and
+6:29:35
+pass in the files to be active fragment.files files as and in here you
+6:29:42
+can choose to use let me just copy from here
+6:29:49
+this type basically because the JSON type will be any right
+6:29:54
+so we are now marking it as this make sure to import the file explorer and you
+6:30:01
+can remove the code view now because we're going to use it inside of the file explorer and I think that already just
+6:30:06
+make sure you have a fragment selected here When you click on code, you should have a to-do tree view and to-do code
+6:30:13
+view. Perfect. And I've had some trouble uh making this
+6:30:19
+work. Oh, looks like it's working just fine. Okay, my version had some problems. I think looks like it works
+6:30:27
+just fine nevertheless. Okay, now let's go ahead and let's actually develop the tree view and the code view. So, I'm
+6:30:34
+going to go back inside of the file explorer here. And I think it might be easier to develop the code view first
+6:30:40
+simply because we already have the code view. So I'm going to go inside of this div here and I'm going to add a class
+6:30:46
+name height full width full flex and flex column. And then I'm going to open
+6:30:53
+a new div. The class name border bottom bg sidebar px4 py2 flex
+6:31:02
+justify center. Uh actually it will be justify between items will be center and gap x will be
+6:31:10
+two. Then let's add to-do breadcrump file
+6:31:16
+breadcrump like this. And then add a hint component
+6:31:21
+wrapping our button component and give this a text of copy to clipboard and the
+6:31:27
+side of bottom. And for this button right here, give it
+6:31:33
+a variant of outline, a size of icon, a class name of ML auto on click to be an
+6:31:41
+empty arrow function, and disabled
+6:31:46
+to be false. And inside of here, render the copy icon.
+6:31:52
+So now, when you click on code, you should have the copy to clipboard
+6:31:58
+button. Just make sure you have both button and the hint imported.
+6:32:04
+Great. And now below this div, we're going to open a new div with a class
+6:32:10
+name flex one overflow auto and render the code view.
+6:32:18
+In here, select the code to be files and then selected file. And the language
+6:32:24
+will be oops the language will use our function get
+6:32:31
+language from extension selected file. Whoops.
+6:32:38
+Like this. And by default, you can see that it selected a specific file. Right
+6:32:44
+now, I'm not able to scroll. We will fix this as well. by uh let's see it has
+6:32:50
+overflow auto but I think that we are missing uh something obviously because
+6:32:56
+it's preventing us from doing this uh so let's see
+6:33:03
+everything here seems fine but yes I'm not able to scroll to the
+6:33:09
+bottom here so how about I go inside of the project view here
+6:33:14
+and to the value code add a class name a minimum height of zero.
+6:33:21
+And I think that now when you select the fragment, there we go. Now I'm able to scroll in all directions, you should be
+6:33:29
+able to scroll left and right and up and down. So basically inside of your
+6:33:34
+project view in the tab content for the value code, add a minimum height of zero. And this will allow you to scroll
+6:33:41
+inside of the code preview. So this is now showcasing the very first file it selected. But now we have to build the
+6:33:49
+tree view so we actually see the file we selected and so that we can choose between other files. And then we need a
+6:33:56
+breadcrumb component here to render the current file. So let's go ahead and
+6:34:01
+let's build the tree view next. So I'm going to prepare that right here in the
+6:34:07
+file explorer right above where we added a to-do to render the tree view. Let's
+6:34:13
+add tree view like this. And let's give it some props. Data is going to be an
+6:34:20
+empty array. Value will be selected file. On select will be an empty
+6:34:27
+function. And now let's go ahead and let's prepare this things here. So what
+6:34:32
+I want to do now is the following. Uh I want to go inside of source lib utils
+6:34:39
+and I will export function convert files to tree items
+6:34:46
+and I'm going to create a JS doc like this simply so you can see what happens.
+6:34:52
+So this JS doc is quite useful. I don't like I mean I don't use it usually but
+6:34:57
+it's useful when I feel like things are not exactly clear. You can see how when you create a comment like this and when
+6:35:04
+you hover over a function it actually tells you that. So it converts a record of files to a tree structure. So we
+6:35:11
+accept files which is a record of file paths to content. So this is the input right source button tsx and then some
+6:35:18
+content and this is the output that it will return. So that's what we are building now. So let's go ahead and add
+6:35:26
+some props here. files which will be a type of path which is a type of string
+6:35:32
+and a string and it will return a tree item. So now
+6:35:38
+we need to create the tree item object. So let me just
+6:35:44
+uh do this like so I'm trying to think of a perfect place
+6:35:49
+to add this to. Um how about in source we just create
+6:35:55
+types ds and let's export type tree item
+6:36:01
+and that will be a string or an array of string
+6:36:07
+and tree item itself. So it can reference itself right it can be a
+6:36:14
+deeply nested array. Now that we have this, we can go back
+6:36:19
+inside of the utils file here. Uh, and we can set the return method to be the
+6:36:25
+return type to be tree item from the types. And it's going to be an array of those three items and it's going to be
+6:36:32
+an error until we actually return that. So I want to do this because this way we are certain that we correctly developed
+6:36:38
+this. So let's start by creating an interface tree node like this which is
+6:36:46
+basically a key which is a string and then tree node which is itself inside or
+6:36:51
+null. Then let's define a tree which is a type of tree node and it's going to be
+6:36:57
+an empty object at first. Now let's go ahead and create sorted paths. So we are
+6:37:04
+basically sorting the files alphabetically by their path. And then what we're going
+6:37:09
+to do is a for loop. So for const file path of sorted paths.
+6:37:17
+Let's go ahead and this uh split the file path into parts by doing file
+6:37:24
+path.split by a forward slash. The current one will
+6:37:29
+be the current tree which is just the empty object for now. And then for
+6:37:36
+let index being zero, index being less than the parts length
+6:37:43
+minus one and index increasing by one for each iteration
+6:37:48
+get the part. So parts and using this index here if we cannot find the path
+6:37:57
+the part in the current object we need to add it there like this
+6:38:05
+and then current is equal to current part like this.
+6:38:11
+And then what we have to do outside of here is add the file or the leaf node.
+6:38:19
+Right? So const file name is parts parts.length minus one. Current file
+6:38:27
+name is equal to null. This will basically indicate that it's a
+6:38:33
+file. This is quite confusing, right? But once you see how the file uh
+6:38:38
+structure will look, it will make a little bit uh more sense. Uh okay. So I
+6:38:46
+think that this uh let me just see.
+6:38:52
+Yeah. So okay, we just finished this for loop, right? And now we have to uh
+6:38:59
+convert the node. So let's create an inner function to do that. function
+6:39:05
+convert node. The node it accepts is a tree node.
+6:39:11
+We have defined a tree node right here.
+6:39:16
+And the name is an optional string and it returns back a tree item, an array of
+6:39:23
+tree items or a single tree item like this. So let's get the entries to
+6:39:31
+be object entries from a specific node.
+6:39:36
+If entries.length is equal to zero, return the name or an
+6:39:42
+empty string. Then define the children to be a tree item
+6:39:47
+like so. And set it to be an empty array for now.
+6:39:54
+And then let's go ahead and do for const
+6:40:00
+they structure the key and the value of entries and do the following. If value
+6:40:08
+is equal to null that means this is a file. So do
+6:40:15
+children.push key. Else this is a folder. So create a sub
+6:40:24
+tree using convert node and pass in the value and the key. So we need to go
+6:40:29
+deeper. We need to recursively call this function again until we find a file. If
+6:40:34
+array is array subtree
+6:40:40
+children dopush open an array of key and spread the
+6:40:45
+subree. else children do push key and subtree
+6:40:54
+like so. And then let's go ahead outside of this four and return the children
+6:41:03
+like so. And then let's define the result here to be convert node tree and
+6:41:10
+return array is array result
+6:41:15
+otherwise result inside of the array like this.
+6:41:21
+And if you've done it correctly you should have no errors here.
+6:41:26
+Now I completely understand that this was a very complex task. And if if you
+6:41:32
+are worried that you did it incorrectly, don't worry. Uh I have added my entire utilus files to my public assets. So you
+6:41:39
+can just find it here and you can copy it from here. For example, I can copy this entire file and I can paste it in
+6:41:46
+here like so. So now I have this convert node and I have the convert files to
+6:41:52
+three items. Right? So if you want to do a double
+6:41:57
+check or you just want to copy file uh because it's easier, you can do that. Don't worry. Uh yes, a slight mistake
+6:42:05
+here. My apologies. Uh so don't worry, I will fix I will fix this file so it
+6:42:10
+doesn't use this import because our tree item comes from types.
+6:42:16
+Yes. So import type three item. Uh I will fix that instead. I think I can fix
+6:42:22
+it right now. There we go. Like so.
+6:42:28
+So when you copy, you won't have that problem. Uh and I will double check by copying this file again. Pasting it. Uh
+6:42:37
+oops. Copy it again. I cannot seem to copy it. Let me try one
+6:42:44
+more time. I think the copy button is still using the old one.
+6:42:49
+Okay. Finally, no errors in the utilus file. Okay. So, now that you have the
+6:42:55
+convert files to tree items, we can go back inside of the file explorer.
+6:43:05
+And in here, uh, we're going to have to create tree data. So, const tree data
+6:43:12
+will be use memo and return convert files to tree items
+6:43:18
+and pass files here. And in here add files as a dependency. So just make sure
+6:43:24
+you imported our newly created function here. Uh you can either write write that
+6:43:30
+function yourself as we just did or you can copy it from the source code or from the assets folder. Uh great. Now that we
+6:43:37
+have this and we have the tree data, let's go ahead and let's add the const
+6:43:43
+handle file select to be use call back.
+6:43:50
+And inside of the use call back, we're going to
+6:43:55
+check the file path to be a type of string. And if files file path exists, set
+6:44:05
+selected file to be the file path. And add files here. There we go.
+6:44:13
+Perfect. And now inside of the tree view, add the tree data here.
+6:44:21
+And on select, add handle file select like so. And now it's time to develop
+6:44:28
+the treeview component. So I'm going to go inside of components tree view.tsx.
+6:44:36
+Let's go ahead and create the interface tree view props which uses the tree item from our types
+6:44:43
+like so. And now let's export const tree view.
+6:44:50
+Let's assign the props. Tree view props. In here we get data value end on select.
+6:44:59
+And in here let's go ahead and let's return a paragraph tree. Actually maybe
+6:45:05
+we can do JSON stringify data just so we can see
+6:45:10
+what we created. And let's import the tree view from dot slash treeview.
+6:45:20
+And if you go back to your app here, select a fragment and click code. There we go. I have app folder and page.tsx.
+6:45:27
+So those are for me. But if I go into one of my older ones, well, looks like all of these are pretty simple. So it's
+6:45:34
+going to keep using just uh a simple example. But if you tell it to build
+6:45:39
+something complicated, uh you will have more items here. So this represents a
+6:45:45
+folder and this represents a file. And now I mean this is basically how the file structure should look like. And now
+6:45:52
+we're going to use that to properly render the tree view. So, uh, let's go ahead and let's import
+6:45:59
+everything we need from the sidebar component. So, that's going to be the sidebar, the
+6:46:06
+content group, group content, menu, menu button, menu item, menu sub, provider,
+6:46:13
+and rail from components UI sidebar. You already have this when you added Shatsen
+6:46:18
+UI. And now let's go ahead here and let's render that. So starting with the
+6:46:24
+sidebar provider and let's render sidebar with
+6:46:30
+collapsible to be none and class name to be width full and then sidebar content
+6:46:39
+like so. inside of the sidebar content. Sidebar
+6:46:45
+group sidebar group content sidebar menu
+6:46:54
+like that. So you shouldn't see anything now simply because we didn't add anything in the
+6:47:01
+menu. So now what we have to do is we have to develop the tree component. So let's do that below here. Const tree
+6:47:11
+will have an interface tree props which will accept item which is a type of tree
+6:47:16
+item. It will accept selected value which will be an optional string or it
+6:47:22
+will be null on select which will be an optional function which accepts the value
+6:47:28
+which is a type of string and returns a void and parent path which will be a
+6:47:34
+string. So let's go ahead and add tree props here and the structure the item selected
+6:47:42
+value on select and parent path like so.
+6:47:49
+Inside of here, let's first do a destruction of the name and the rest of
+6:47:54
+the items from an array. Array is array item. If it is, we can render the item.
+6:48:02
+Otherwise, put the item in the array. Then let's get the current path. This
+6:48:08
+will check if we have the parent path and it's going to render dynamically
+6:48:13
+using backd parent path forward slashname otherwise just the
+6:48:19
+name of the file. If we don't have any items,
+6:48:26
+uh this means that this is a file. So let's add it's a file const is selected
+6:48:33
+here will be selected value equals current path
+6:48:40
+and in here we're going to return sidebar menu button
+6:48:46
+with is active to be is selected and class name will be data active true
+6:48:54
+background transparent and I'll click Here we'll call on select with a
+6:49:00
+question mark because it can be optional and pass the current path inside of here. Render the file icon
+6:49:09
+uh file icon from lucid react. Just make
+6:49:14
+sure you have it like that. And below that a span and the name. And this will
+6:49:20
+have a class name of truncate like that. and then go outside of this
+6:49:26
+if clause and this means it's a folder
+6:49:32
+and in here return sidebar menu item
+6:49:37
+with collapsible uh we now have to import the things from collapsible as well. My apologies I
+6:49:44
+forgot about that. So just add collapsible content and trigger from components UI collapsible. you also have
+6:49:51
+those components. So, let's go ahead uh down here and
+6:49:59
+instead of the sidebar menu item, open collapsible like that.
+6:50:06
+Uh let me just fix this collapsible. Give it a class name of
+6:50:12
+group forward slash collapsible.
+6:50:18
+and then add the following class name which is a little bit longer and looks
+6:50:23
+weird. So basically open curly brackets and this entire thing is inside of that
+6:50:30
+curly brackets and and then if data state is open for this component target
+6:50:37
+the button target the SVG and target the first child and rotate it by 90
+6:50:44
+and set the default to open inside of here collapsible trigger with
+6:50:51
+the prop as child Add a sidebar menu button component with
+6:50:58
+the chevron right icon from lucid react and give it a class name of transition
+6:51:04
+transform. So this is the icon that we are going to rotate by 90 once we open
+6:51:09
+this collapsible and next to it add a folder icon from
+6:51:15
+Lucid React and then a span with the name of the folder and the class name
+6:51:21
+truncate and then outside of the collapsible trigger use a collapsible content and
+6:51:30
+inside of this a sidebar menu sub
+6:51:35
+and inside of here go over items.mmap get the sub item
+6:51:44
+and the index and render the tree again. That's right. We are rendering itself
+6:51:51
+again. And in here set the key to be index item
+6:51:58
+to be sub item. Selected value to be selected value.
+6:52:04
+On select to be on select oops parent path to be current path
+6:52:14
+like that. And that's it for the tree component. What we have to do now is we
+6:52:19
+have to actually use the tree component. And we're going to do that by going back here inside of the sidebar menu and
+6:52:26
+simply do data.m map item and index. Render the tree component.
+6:52:33
+Pass in the key to be index. Item will be item. Selected value will be the
+6:52:39
+value. On select will be on select and parent path will be an empty string. So
+6:52:47
+let's see what we didn't use. We didn't use sidebar rail. So, we forgot that.
+6:52:52
+So, let's go down here after sidebar content and render sidebar rail.
+6:53:02
+Now, let's go inside of the file explorer. Oh, we already have tree view. So, there we go. Here we have it. And we
+6:53:08
+can open and close it. Uh, but looks like our select isn't really showing. It
+6:53:14
+isn't working. So, let's fix that.
+6:53:19
+Or maybe this is the selected state. I'm not exactly sure. So I'm going to try
+6:53:26
+and develop something a bit more complicated. So I'm going to try to prompt it to something to create more
+6:53:32
+files. Okay. So what I did is I asked it to
+6:53:38
+build a landing page with each part in its own component. And that generated a much better result as you can see. So
+6:53:45
+what I'm going to do is I'm going to expand this. I'm going to go back to the code and yeah, I still am not able to
+6:53:51
+select this. So, let's go ahead and look at what we forgot to do. So, okay, these
+6:53:56
+breadcrumbs are unused. That's okay. Uh, we're going to use them in a moment, but
+6:54:02
+it seems like this handle file select uh is not working properly. So what I'm
+6:54:10
+going to do is I'm going to first start by adding a console log
+6:54:16
+and rendering the file path. So I'm going to open my
+6:54:24
+inspect element here and okay. Oh, so it looks app name is being sent. Okay, so
+6:54:30
+that definitely doesn't exist. Let's go inside of a tree view and let's see what I did wrong. So in here we have on
+6:54:38
+select parent path and then the name. Yes, this this
+6:54:45
+doesn't look correct. I think I meant this in the current path.
+6:54:53
+Let me refresh and check. Select the fragment check.
+6:54:59
+There we go. So I'm I'm not sure if you can see. Well, you can definitely see the code is changing, right? And also
+6:55:06
+the file is is a little bit bold. So basically the problem was in the tree
+6:55:11
+view component the current path I hardcoded name when what I should have been doing uh is put it inside of curly
+6:55:19
+brackets like this. Excellent. So now that we have this uh
+6:55:25
+the good thing is no more no need for to do anything more in the tree view. Uh
+6:55:30
+now let's go ahead and let's enable the copy button and let's create the file breadcrumb here. So I want to do the
+6:55:36
+file uh breadcrumb thing first. So I'm
+6:55:41
+going to go inside of the file explorer. Um let's go just above it here. So const
+6:55:49
+file breadcrumb like this. Let's go ahead and create an interface
+6:55:56
+file breadcrumb props which accepts an individual file path.
+6:56:03
+Let's extract the file path from here and let's go ahead and get the path
+6:56:10
+segments by a forward slash and let's limit the maximum number of segments to
+6:56:16
+be four. So if the path goes deeper than four segments, we're going to be
+6:56:21
+responsive about it. Now let's do con render breadcrumb items
+6:56:28
+like this. And in here if path segments
+6:56:34
+length is lower than or equal than maximum segments add a comment show all
+6:56:41
+segments if four or less.
+6:56:48
+So let's return path segments here. Map segment
+6:56:53
+index const is last will be if the index is equal to path
+6:57:00
+segments.length minus one and in here return a fragment.
+6:57:07
+Give it a closing tag. Give the fragment a key of index. The
+6:57:13
+fragment is imported from React right here. Inside of the fragment, add a
+6:57:19
+breadcrumb item. Check. Oh, let me just fix bread
+6:57:26
+breadcrumb inside check is last if it is render
+6:57:33
+breadcrumb page and inside the segment
+6:57:39
+and give it a class name of font medium. If it is not last,
+6:57:46
+we're going to render a span element and segment inside and give the span a class
+6:57:52
+name text muted foreground. And then outside of the breadcrumb item,
+6:57:59
+if it is not last, again add a breadcrumb separator
+6:58:05
+like so. And this was inside of this if. So let's now add else.
+6:58:12
+We are going to show the first element and then ellipses if we have more than
+6:58:18
+four of them. So the first segment is what we care about. Path segments first in the array.
+6:58:27
+Last segment. So path segments.length
+6:58:33
+minus one. So it's only those two that we care about. And once we get those two, let's simply
+6:58:40
+return a fragment breadcrumb item
+6:58:46
+a span first segment with a class name text muted foreground. And then let's go
+6:58:55
+ahead and add the breadcrumb separator and the breadcrumb ellipses like so. So
+6:59:03
+render the breadcrumb separator and then a breadcrumb item which renders the breadcrumb ellipses. All of these are
+6:59:10
+imported from the same thing. Then let's add another breadcrumb item here with a
+6:59:16
+breadcrumb page and render the last segment inside
+6:59:22
+and give this a class name of font medium. And finally
+6:59:29
+outside of this function return breadcrumb
+6:59:36
+and then breadcrumb list and then render breadcrumb items
+6:59:45
+like that. So a little bit of effort here to create
+6:59:50
+nice and responsive file breadcrumbs. And now let's go ahead and let's render them. So that's going to be rendered in
+6:59:58
+the code view. So there we go. To-do file breadcrumb just above this hint.
+7:00:04
+Let's render a file breadcrumb. And let's give it a file path to be selected file.
+7:00:12
+And there we go. App contact tsx features footer hero navbar. And if you
+7:00:18
+create one that's very deep, it will show a maximum of four folders before it
+7:00:26
+uses the responsive mode and it will just replace the folders in between with an ellipses which is basically three
+7:00:33
+dots. Perfect. Now let's implement the copy feature.
+7:00:39
+So we already did this before. So we can copy it from that place. Handle copy use
+7:00:45
+call back. If we have the selected file right to the navigator clipboard with files selected file and now we have to
+7:00:52
+add the set copied state. So let me just add it here above the
+7:00:59
+selected file. Copied and set copied. Perfect. So now we have handle copy. And
+7:01:04
+now let's use the handle copy for this button right here. Handle copy. And
+7:01:12
+let's paste in copied. copied. If it's copied, we will use the copy
+7:01:19
+check icon. Otherwise, the copy icon
+7:01:26
+like this. And you should no longer have any errors in your code because we are using everything. So when I click copy,
+7:01:31
+it turns into a different icon now. And you can see that I just copied that entire thing. Amazing. We just developed
+7:01:39
+a super amazing file explorer. So now I'm going to try to prompt it to create
+7:01:45
+a deeper structure. But this is pretty much it for uh this chapter.
+7:01:53
+All right. So this time I told it build a landing page with each part in its own component. Use deeply nested folders.
+7:02:00
+And you can see that I definitely got that. So inside of the app folder I have
+7:02:05
+a landing and then I have features and then I have the file. And you can see our breadcrumb in action now. But for
+7:02:12
+example, you can see that I can break it, right? I if I open this too much, it breaks. So what you can do is you can
+7:02:18
+remove the maximum segments here to be three. And it will be reasonable to change the comment here as well. And
+7:02:26
+this is how it will look like. Then let me just refresh. I think the error was because of the hot reload. And let's
+7:02:31
+click on the fragment here. So let me select features. Uh okay. So you can see it works. But it
+7:02:39
+seems like we have some problem here. Uh, okay. List cannot be a descendant of
+7:02:44
+list. Uh, okay. It's a hydration error. It's not exactly too big of a problem, but I'm
+7:02:53
+not um I'm not too sure how to fix that at the top of my mind right now. So, I'm
+7:02:59
+going to leave it like this. I think it's not too big of an issue. It's a small hydration error, but you can see
+7:03:04
+how it looks, right? And if you click on something simpler like page, you can see that it will display the entire thing.
+7:03:10
+But for something complicated, it will just show you the first and the last segment. So you can decide if you want
+7:03:17
+to show that for three segments or for four segments, right? Whatever makes
+7:03:22
+sense for you. Amazing, amazing job. So I think this was uh a much harder
+7:03:29
+chapter, but I think it was worthwhile. We have an actual uh file explorer now
+7:03:34
+that we can copy files from and explore everything that was created. We can scroll. Definitely an impressive result.
+7:03:43
+So now let's go ahead and mark these things as completed
+7:03:48
+and let's open a new branch. So 13 code view. Let me collapse this. Open the
+7:03:54
+source control. Opening a new branch here. 13 code view. Just to double check
+7:04:02
+that's the chapter's name. Once we are on the new chapter, I'm going to stage all of my changes. 13 code view. I'm
+7:04:09
+going to commit and I'm going to publish this branch. As always, a reminder,
+7:04:15
+there's a free code rabbit extension you can use to review your files. And now, let's go ahead and let's see
+7:04:24
+our pull request. So, I'm going to open this new pull request here. And let's
+7:04:29
+review our summary. And here we have the code rabbit
+7:04:35
+summary. We introduced a code viewer with syntax highlighting and GitHub dark theme. We added a file explorer with
+7:04:42
+three view breadcrumb navigation and a copy to clipboard functionality for code
+7:04:47
+files. We enhanced the project view with tabbed navigation allowing users to switch between a live demo and the code
+7:04:54
+view of project fragments. That is exactly what we did in this chapter. As
+7:05:00
+always, a walkthrough of file by file and of course a sequence diagram. So in
+7:05:05
+here we have this very complicated component which we build the file explorer which renders the tree view and
+7:05:12
+then finally the code view. So in here you can see it generated the entire sequence diagram for that component
+7:05:18
+along with the prisjs code highlighting. So very very good. We have a few
+7:05:25
+comments here. Um this one is a good comment. It's basically telling us to also add an actual type of check. The
+7:05:33
+reason it's telling us this because uh it could be anything but then at the
+7:05:40
+same time we know that it's always going to be an object. It's going to be a type of JSON, right? So, I think this is a
+7:05:47
+little bit redundant. Adding it would not hurt, but I think
+7:05:52
+it's okay the way it is right now. I'm not sure about this change. I think uh
+7:05:58
+it works just fine like this. And in here, I accidentally added two
+7:06:03
+semicolons in the file explorer props. So, yes, of course, we can remove that. I'm going to do that in the next
+7:06:09
+chapter. And there we go. Let's merge this pull request and let's go back here and let's
+7:06:16
+go ahead and go back to main and let's synchronize our changes again.
+7:06:22
+And once you've done that, go inside of source control graph and just confirm that you merged the 13 successfully.
+7:06:30
+Amazing, amazing job. That marks the end of this chapter and see you in the next one.

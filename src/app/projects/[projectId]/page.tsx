@@ -1,3 +1,9 @@
+import { getQueryClient , trpc} from "@/trpc/server";
+import { dehydrate, HydrationBoundary} from "@tanstack/react-query";
+import { ProjectView } from "@/modules/projects/ui/views/project-view";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
 interface props {
     params: Promise<{
         projectId: string;
@@ -6,21 +12,27 @@ interface props {
 
 const page = async ({params}: props) => {
     const { projectId } = await params;
+
+    const queryClient = getQueryClient();
+    void queryClient.prefetchQuery(trpc.projects.getOne.queryOptions({
+        id: projectId,
+    }));
+    void queryClient.prefetchQuery(trpc.messages.getMany.queryOptions({
+        projectId,
+    }));
     
     /* DEBUGGING START: Added console.log to confirm the project page loads with correct ID */
     console.log("Project page loaded with ID:", projectId); // --->
     /* DEBUGGING END */
 
     return (
-        <div className="p-8">
-            {/* DEBUGGING START: Enhanced the UI to show more project details and confirm page loads */}
-            <h1 className="text-2xl font-bold mb-4">Project Details</h1> {/* ---> */}
-            <div className="bg-gray-100 p-4 rounded"> {/* ---> */}
-                <p><strong>Project ID:</strong> {projectId}</p> {/* ---> */}
-                <p><strong>Page loaded at:</strong> {new Date().toLocaleString()}</p> {/* ---> */}
-            </div> {/* ---> */}
-            {/* DEBUGGING END */}
-        </div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <ErrorBoundary fallback={<p>Error</p>}>
+            <Suspense fallback={<p>Loading...</p>}>
+                <ProjectView projectId={projectId} />
+            </Suspense>
+            </ErrorBoundary>
+        </HydrationBoundary>
     );
 }
 
