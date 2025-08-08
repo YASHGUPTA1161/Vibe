@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -62,9 +63,9 @@
     "prismjs": "^1.30.0",
     "random-word-slugs": "^0.1.7",
     "rate-limiter-flexible": "^7.1.1",
-    "react": "^19.0.0",
+    "react": "19.1.1",
     "react-day-picker": "^9.7.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "19.1.1",
     "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.59.0",
     "react-resizable-panels": "^3.0.3",
@@ -82,7 +83,7 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/prismjs": "^1.26.5",
-    "@types/react": "^19",
+    "@types/react": "19.1.9",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",

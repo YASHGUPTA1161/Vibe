@@ -1,0 +1,14 @@
+# Exclude system folders
+C:\Users\*\Application Data\**
+C:\Users\*\AppData\**
+C:\Users\*\Cookies\**
+C:\Users\*\Local Settings\**
+C:\Users\*\Application Data
+C:\Users\*\AppData
+C:\Users\*\Cookies
+C:\Users\*\Local Settings
+
+# Exclude other system paths
+C:\Windows\**
+C:\Program Files\**
+C:\Program Files (x86)\**

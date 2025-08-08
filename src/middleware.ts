@@ -5,7 +5,8 @@ const isPublicRoute = createRouteMatcher([
     "/sign-in(.*)",
     "/sign-up(.*)",
     "/pricing(.*)",
-    "/api/inngest(.*)" // This makes the Inngest API route public
+    "/api/inngest(.*)", // This makes the Inngest API route public
+    "/api/trpc(.*)" // Add this line to make TRPC routes public
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
