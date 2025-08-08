@@ -1,4 +1,19 @@
 import { CopyCheckIcon, CopyIcon } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis, // Uncomment if used
+} from "@/components/ui/breadcrumb";
+
+import {
+  FolderIcon,
+  FileIcon,
+  ChevronRight,
+} from "lucide-react";
 import { useState, useMemo, useCallback, Fragment} from "react";
 
 import { Hint } from "@/components/hint";
@@ -12,20 +27,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis, // Uncomment if used
-} from "@/components/ui/breadcrumb";
 
-import {
-  FolderIcon,
-  FileIcon,
-  ChevronRight,
-} from "lucide-react";
 
 type FileCollection = { [path: string]: string };
 
