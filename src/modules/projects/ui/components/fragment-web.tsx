@@ -50,8 +50,9 @@ export function FragmentWeb({ data }: Props) {
                     disabled={!data.sandboxUrl}
                     variant="outline" 
                     onClick={() => {
-                        if (data.sandboxUrl) return;
-                        window.open(data.sandboxUrl, "_blank");
+                        if (data.sandboxUrl) {
+                            window.open(data.sandboxUrl, "_blank");
+                        }
                     }}
                     >
                     <ExternalLinkIcon />
@@ -65,6 +66,13 @@ export function FragmentWeb({ data }: Props) {
                 sandbox="allow-forms allow-scripts allow-same-origin"
                 loading="lazy"
                 src={data.sandboxUrl}
+                onError={(e) => {
+                    console.error("Iframe failed to load:", e);
+                }}
+                onLoad={() => {
+                    console.log("Iframe loaded successfully");
+                }}
+                title="Fragment Preview"
             />
         </div>
     )
