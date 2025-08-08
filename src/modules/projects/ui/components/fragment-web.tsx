@@ -4,6 +4,7 @@ import { ExternalLinkIcon, RefreshCcwIcon, AlertTriangleIcon } from "lucide-reac
 import { Fragment } from "@/generated/prisma";
 import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
+import React from "react";
 
 interface Props {
     data: Fragment
@@ -14,11 +15,13 @@ export function FragmentWeb({ data }: Props) {
     const [fragmentKey, setFragmentKey] = useState(0);
     const [iframeError, setIframeError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [showTimeoutMessage, setShowTimeoutMessage] = useState(false);
 
     const onRefresh = () => {
         setFragmentKey(prev => prev + 1);
         setIframeError(false);
         setIsLoading(true);
+        setShowTimeoutMessage(false);
     };
 
     const handleCopy = () => {
@@ -37,7 +40,18 @@ export function FragmentWeb({ data }: Props) {
         console.log("Iframe loaded successfully");
         setIframeError(false);
         setIsLoading(false);
+        setShowTimeoutMessage(false);
     };
+
+    // Show timeout message after 5 seconds
+    React.useEffect(() => {
+        if (isLoading) {
+            const timer = setTimeout(() => {
+                setShowTimeoutMessage(true);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [isLoading]);
 
     return (
         <div className="flex flex-col w-full h-full">
@@ -102,7 +116,23 @@ export function FragmentWeb({ data }: Props) {
                 <div className="relative flex-1">
                     {isLoading && (
                         <div className="absolute inset-0 flex items-center justify-center bg-background">
-                            <div className="text-sm text-muted-foreground">Loading preview...</div>
+                            <div className="text-center space-y-4">
+                                <div className="text-sm text-muted-foreground">Loading preview...</div>
+                                {showTimeoutMessage && (
+                                    <div className="space-y-2">
+                                        <div className="text-xs text-amber-500 font-medium">
+                                            ⚠️ Taking too long? The demo might not display in the preview frame due to security restrictions.
+                                        </div>
+                                        <Button 
+                                            size="sm"
+                                            onClick={() => window.open(data.sandboxUrl, "_blank")}
+                                            variant="outline"
+                                        >
+                                            Open Demo in New Tab
+                                        </Button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                     <iframe
